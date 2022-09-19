@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 //Schema design
-const productSchema = mongoose.Schema(
+const tourSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "Please provide a name for this product"],
+      required: [true, "Please provide a name for this tour"],
       trim: true,
       unique: [true, "Name must be unique!"],
       minLength: [3, "Name must be at least three characters"],
@@ -13,16 +13,16 @@ const productSchema = mongoose.Schema(
     },
     description: {
       type: String,
-      required: [true, "Please provide a description for this product"],
+      required: [true, "Please provide a description for this tour"],
     },
     price: {
       type: Number,
-      required: [true, "Please provide a price for this product"],
+      required: [true, "Please provide a price for this tour"],
       min: [0, "Price can't be negative"],
     },
     unit: {
       type: String,
-      required: [true, "Please provide a unit for this product"],
+      required: [true, "Please provide a unit for this tour"],
       enum: {
         values: ["kg", "liter", "pcs"],
         message: "Unit value can't be {VALUE}, must be kg/liter/pcs",
@@ -30,7 +30,7 @@ const productSchema = mongoose.Schema(
     },
     quantity: {
       type: Number,
-      required: [true, "Please provide a quantity for this product"],
+      required: [true, "Please provide a quantity for this tour"],
       min: [0, "Quantity can't be negative"],
       validate: {
         validator: (value) => {
@@ -71,6 +71,6 @@ const productSchema = mongoose.Schema(
 //Schema -> Model -> Query
 
 //Making Model
-const Product = mongoose.model("Product", productSchema);
+const Tour = mongoose.model("Tour", tourSchema);
 
-module.exports = Product;
+module.exports = Tour;

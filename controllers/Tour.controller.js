@@ -1,10 +1,10 @@
 const {
-  getProductsService,
-  createProductService,
-} = require("../services/Product.services");
+  getToursService,
+  createTourservice,
+} = require("../services/Tour.services");
 
-exports.getProducts = async (req, res, next) => {
-  const product = await getProductsService();
+exports.getTours = async (req, res, next) => {
+  const product = await getToursService();
   try {
     res.status(200).json({ status: "Success!", data: product });
   } catch (error) {
@@ -12,10 +12,10 @@ exports.getProducts = async (req, res, next) => {
   }
 };
 
-exports.createProducts = async (req, res, next) => {
+exports.createTours = async (req, res, next) => {
   try {
     //Save or Create
-    const result = await createProductService(req.body);
+    const result = await createTourservice(req.body);
     res.status(200).json({
       status: "Success",
       message: "Data inserted successfully!",
