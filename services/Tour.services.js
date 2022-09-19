@@ -1,7 +1,7 @@
 const Tour = require("../models/Tour");
 
-exports.getToursService = async () => {
-  const tour = await Tour.find();
+exports.getToursService = async (query) => {
+  const tour = await Tour.find(query);
   return tour;
 };
 
@@ -24,3 +24,9 @@ exports.updateTourService = async (dataId, data) => {
   );
   return tour;
 };
+
+//Get tour with queries services
+// exports.getToursServiceWithQueries = async (query) => {
+//   const tour = await Tour.findOne(query);
+//   return tour;
+// };

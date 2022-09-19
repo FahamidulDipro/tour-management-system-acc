@@ -7,7 +7,7 @@ const {
 
 //Getting All Tours
 exports.getTours = async (req, res, next) => {
-  const tours = await getToursService();
+  const tours = await getToursService(req.query);
   try {
     res.status(200).json({ status: "Success!", data: tours });
   } catch (error) {
@@ -62,3 +62,14 @@ exports.updateTour = async (req, res, next) => {
     });
   }
 };
+
+//Getting Tours with queries
+// exports.getToursWithQueries = async (req, res, next) => {
+//   const tours = await getToursService(req.query);
+//   console.log(tours);
+//   try {
+//     res.status(200).json({ status: "Success!", data: tours });
+//   } catch (error) {
+//     res.status(400).json({ status: "Failed", error: error.message });
+//   }
+// };
