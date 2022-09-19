@@ -7,7 +7,24 @@ const {
 
 //Getting All Tours
 exports.getTours = async (req, res, next) => {
-  const tours = await getToursService(req.query);
+  const queryFilter = { ...req.query };
+
+  const excluedFields = ["limit", "sort", "page", "id"];
+  excluedFields.forEach((field) => delete queryFilter[field]);
+  const queries = {};
+
+  if (req.query.sort) {
+    const sortBy = req.query.sort.split(",").join(" ");
+    queries.sortBy = sortBy;
+    console.log(sortBy);
+  }
+  if (req.query.fields) {
+    const fieldsBy = req.query.fields.split(",").join(" ");
+    queries.fieldsBy = fieldsBy;
+    console.log(fieldsBy);
+  }
+  const tours = await getToursService(queryFilter, queries);
+
   try {
     res.status(200).json({ status: "Success!", data: tours });
   } catch (error) {
