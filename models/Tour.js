@@ -20,7 +20,6 @@ const tourSchema = mongoose.Schema(
       required: [true, "Please provide a price for this tour"],
       min: [0, "Price can't be negative"],
     },
-   
   },
   { timestamps: true }
 );
