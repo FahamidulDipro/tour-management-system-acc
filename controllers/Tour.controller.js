@@ -2,13 +2,14 @@ const {
   getToursService,
   createTourservice,
   getTourDetailService,
+  updateTourService,
 } = require("../services/Tour.services");
 
 //Getting All Tours
 exports.getTours = async (req, res, next) => {
-  const product = await getToursService();
+  const tours = await getToursService();
   try {
-    res.status(200).json({ status: "Success!", data: product });
+    res.status(200).json({ status: "Success!", data: tours });
   } catch (error) {
     res.status(400).json({ status: "Failed", error: error.message });
   }
@@ -40,5 +41,24 @@ exports.tourDetails = async (req, res, next) => {
     res.status(200).json({ status: "Success!", data: detail });
   } catch (error) {
     res.status(400).json({ status: "Failed", error: error.message });
+  }
+};
+
+//Updating Tour
+exports.updateTour = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const updatedItem = await updateTourService(id, req.body);
+    res.status(200).json({
+      status: "Success",
+      message: "Data updated into  successfully!",
+      data: updatedItem,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "Failed",
+      message: "Data is not Updated",
+      error: error.message,
+    });
   }
 };

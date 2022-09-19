@@ -14,3 +14,13 @@ exports.getTourDetailService = async (dataId) => {
   const detail = await Tour.findOne({ _id: dataId });
   return detail;
 };
+
+//Update Tour
+exports.updateTourService = async (dataId, data) => {
+  const tour = await Tour.updateOne(
+    { _id: dataId },
+    { $set: data },
+    { runValidators: true }
+  );
+  return tour;
+};
