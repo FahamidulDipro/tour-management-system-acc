@@ -1,6 +1,11 @@
+const { getTourDetailService } = require("../services/Tour.services");
+
 let count = 0;
-exports.viewCount = (req, res, next) => {
+exports.viewCount = async (req, res, next) => {
+  const { id } = req.params;
+  const detail = await getTourDetailService(id);
   count++;
-  console.log(count);
+  detail.count = count;
+  console.log(count, detail);
   next();
 };
