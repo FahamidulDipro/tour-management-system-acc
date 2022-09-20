@@ -9,17 +9,10 @@ const {
 
 //Getting All Tours
 exports.getTours = async (req, res, next) => {
-  let queryFilter = { ...req.query };
-  console.log(req.query);
+  const queryFilter = { ...req.query };
+
   const excluedFields = ["limit", "sort", "page"];
   excluedFields.forEach((field) => delete queryFilter[field]);
-
-  let filterString = JSON.stringify(queryFilter);
-  filterString = filterString.replace(
-    /\b(gt|gte|lt|lte)\b/g,
-    (match) => `$${match}`
-  );
-  queryFilter = JSON.parse(filterString);
 
   const queries = {};
 
