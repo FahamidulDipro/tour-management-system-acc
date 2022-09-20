@@ -23,6 +23,12 @@ exports.getTours = async (req, res, next) => {
     queries.fieldsBy = fieldsBy;
     console.log(fieldsBy);
   }
+  if (req.query.page) {
+    const { page = 1, limit = 3 } = req.query;
+    const skip = (page - 1) * parseInt(limit);
+    queries.skip = skip;
+    queries.limit = parseInt(limit);
+  }
   const tours = await getToursService(queryFilter, queries);
 
   try {
