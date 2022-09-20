@@ -3,14 +3,23 @@ const {
   createTourservice,
   getTourDetailService,
   updateTourService,
+  getThreeCheapestToursService,
 } = require("../services/Tour.services");
 
 //Getting All Tours
 exports.getTours = async (req, res, next) => {
-  const queryFilter = { ...req.query };
-
-  const excluedFields = ["limit", "sort", "page", "id"];
+  let queryFilter = { ...req.query };
+  console.log(req.query);
+  const excluedFields = ["limit", "sort", "page"];
   excluedFields.forEach((field) => delete queryFilter[field]);
+
+  let filterString = JSON.stringify(queryFilter);
+  filterString = filterString.replace(
+    /\b(gt|gte|lt|lte)\b/g,
+    (match) => `$${match}`
+  );
+  queryFilter = JSON.parse(filterString);
+
   const queries = {};
 
   if (req.query.sort) {
@@ -86,13 +95,13 @@ exports.updateTour = async (req, res, next) => {
   }
 };
 
-//Getting Tours with queries
-// exports.getToursWithQueries = async (req, res, next) => {
-//   const tours = await getToursService(req.query);
-//   console.log(tours);
-//   try {
-//     res.status(200).json({ status: "Success!", data: tours });
-//   } catch (error) {
-//     res.status(400).json({ status: "Failed", error: error.message });
-//   }
-// };
+//Getting Top 3 Cheapest Tours
+exports.getThreeCheapestTours = async (req, res, next) => {
+  const tours = await getThreeCheapestToursService(req.query);
+  console.log(tours);
+  try {
+    res.status(200).json({ status: "Success!", data: tours });
+  } catch (error) {
+    res.status(400).json({ status: "Failed", error: error.message });
+  }
+};

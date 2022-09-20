@@ -32,8 +32,10 @@ exports.updateTourService = async (dataId, data) => {
   return tour;
 };
 
-//Get tour with queries services
-// exports.getToursServiceWithQueries = async (query) => {
-//   const tour = await Tour.findOne(query);
-//   return tour;
-// };
+//Get three cheapest tours service
+exports.getThreeCheapestToursService = async (query) => {
+  const tour = await Tour.find({ price: { $lt: 7000 } })
+    .limit(3)
+    .sort({ price: 1 });
+  return tour;
+};

@@ -22,6 +22,7 @@ const tourSchema = mongoose.Schema(
     },
     catagory: {
       type: String,
+      required: [true, "Please provide a catagory for this tour"],
     },
   },
   { timestamps: true }
